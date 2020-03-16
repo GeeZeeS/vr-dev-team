@@ -27,14 +27,14 @@
                             let init_eur = +form.eur.value;
                             if (!init_eur) return
 
-                            form.usd.value = init_eur * "{{ data['usd']|safe }}"
+                            form.usd.value = (init_eur * "{{ data['usd']|safe }}").toFixed(4)
                         };
 
                         form.usd.oninput = function() {
                             let init_usd = +form.usd.value;
                             if (!init_usd) return
 
-                            form.eur.value = init_usd * "{{ data['eur']|safe }}"
+                            form.eur.value = ((("{{ data['eur']|safe }}" - "{{ data['usd']|safe }}") + 1) * init_usd).toFixed(4)
                         };
                     </script>
                 </div>

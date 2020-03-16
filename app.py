@@ -17,7 +17,7 @@ class Converter(db.Model):
     updated = db.Column(db.Date, nullable=False, default=datetime.now())
 
     def __repr__(self):
-        return '<Updated at %r>' % self.updated
+        return f'Updated at {self.updated}'
 
 
 @app.route("/")

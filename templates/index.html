@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-6 text-center">
+            <div class="card">
+                <div class="card-header">
+                    Currency Converter
+                </div>
+                <div class="card-body">
+                    <form name="exchanger">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                EUR
+                                <input type="text" class="form-control" id="eur" name="eur">
+                            </div>
+                            <div class="col-lg-6">
+                                USD
+                                <input type="text" class="form-control" id="usd" name="usd">
+                            </div>
+                        </div>
+                    </form>
+                    <script>
+                        let form = document.forms.exchanger;
+                        form.eur.oninput = function() {
+                            let init_eur = +form.eur.value;
+                            if (!init_eur) return
+
+                            form.usd.value = init_eur * "{{ data['usd']|safe }}"
+                        };
+
+                        form.usd.oninput = function() {
+                            let init_usd = +form.usd.value;
+                            if (!init_usd) return
+
+                            form.eur.value = init_usd * "{{ data['eur']|safe }}"
+                        };
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 text-center">
+            <div class="card">
+                <div class="card-header">
+                    Recent Convert Values
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <thead>
+                        <tr>
+                              <th scope="col"><small><b>EUR</b></small></th>
+                              <th scope="col"><small><b>USD</b></small></th>
+                              <th scope="col"><small><b>Date</b></small></th>
+                        </tr>
+                        </thead>
+                    <tbody>
+                    {% for item in latest_data %}
+                        <tr>
+                            <td>{{item['eur']}}</td>
+                            <td>{{item['usd']}}</td>
+                            <td>{{item['updated']}}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

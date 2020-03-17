@@ -16,12 +16,12 @@ def get_exchange_data():
     if recent_data is not None:
         if recent_data.updated == datetime.today().date():
             print(f"Rates for today were already updated \n"
-                  f"Rates for 1 EUR consists {recent_data.usd} USD for {recent_data.updated}")
+                  f"Rates for 1 EUR consist {recent_data.usd} USD for {recent_data.updated}")
             return recent_data
     fetch_data()
     recent_data = Converter.query.order_by(Converter.id.desc()).first()
     print(f"Successfully Updated \n"
-          f"Rates for 1 EUR consists {recent_data.usd} USD for {recent_data.updated}")
+          f"Rates for 1 EUR consist {recent_data.usd} USD for {recent_data.updated}")
     return recent_data
 
 
